@@ -27,6 +27,8 @@ module Asciidoctor
         case node
         when Asciidoctor::Document
           template.render 'node' => { 'doctitle' => node.doctitle, 'content' => node.content }
+        when Asciidoctor::Section
+          template.render 'node' => { 'title' => node.title, 'sectname' => node.sectname, 'level' => node.level, 'content' => node.content }
         when Asciidoctor::AbstractBlock
           template.render 'node' => { 'title' => node.title, 'content' => node.content }
         when Asciidoctor::Inline
