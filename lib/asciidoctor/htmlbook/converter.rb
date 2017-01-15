@@ -1,4 +1,3 @@
-
 module Asciidoctor
   module Htmlbook
     class Converter < Asciidoctor::Converter::Base
@@ -43,7 +42,7 @@ module Asciidoctor
 
       def abstract_node_to_liquid(node)
         {
-          'context' => node.context,
+          'context' => node.context.to_s,
           'node_name' => node.node_name,
           'id' => node.id,
           'attributes' => node.attributes
@@ -85,7 +84,7 @@ module Asciidoctor
       def inline_to_liquid(node)
         abstract_node_to_liquid(node).merge({
           'text' => node.text,
-          'type' => node.type,
+          'type' => node.type.to_s,
           'target' => node.target
         })
       end

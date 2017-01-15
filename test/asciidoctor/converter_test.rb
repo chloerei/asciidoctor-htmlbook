@@ -71,9 +71,23 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
   end
 
   def test_convert_paragraph
-    block = Asciidoctor::Block.new @doc, 'paragraph', source: 'Text'
+    block = Asciidoctor::Block.new @doc, :paragraph, source: 'Text'
     assert_equal_xhtml <<~EOF, block.convert
       <p>Text</p>
+    EOF
+  end
+
+  def test_convert_indexterm_visible
+    inline = Asciidoctor::Inline.new @doc, :indexterm, 'term', type: :visible
+    assert_equal_xhtml <<~EOF, inline.convert
+      <a data-type="indexterm">term</a>
+    EOF
+  end
+
+  def test_convert_indexterm_invisible
+    inline = Asciidoctor::Inline.new @doc, :indexterm, nil, attributes: { 'terms' => ['primary', 'secondary', 'tertiary']}
+    assert_equal_xhtml <<~EOF, inline.convert
+      <a data-type="indexterm" data-primary="primary" data-secondary="secondary" data-tertiary="tertiary" />
     EOF
   end
 
