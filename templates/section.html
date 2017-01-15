@@ -1,4 +1,17 @@
-<section data-type="{{ node.sectname }}">
-  <h{{ node.level }}>{{ node.title }}</h{{ node.level }}>
-  {{ node.content }}
-</section>
+{% case node.sectname %}
+{% when 'sect1' %}
+  <section data-type="chapter">
+    <h1>{{ node.title }}</h1>
+    {{ node.content }}
+  </section>
+{% when 'sect2' %}
+  <section data-type="sect1">
+    <h1>{{ node.title }}</h1>
+    {{ node.content }}
+  </section>
+{% else %}
+  <section data-type="{{ node.sectname }}">
+    <h1>{{ node.title }}</h1>
+    {{ node.content }}
+  </section>
+{% endcase %}

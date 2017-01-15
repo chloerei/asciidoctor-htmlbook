@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'rexml/document'
 
 class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
   def setup
@@ -6,11 +7,11 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
   end
 
   def test_convert_empty_document
-    assert_equal <<~EOF, pretty_format(@doc.convert)
+    assert_equal_xhtml <<~EOF, @doc.convert
       <!DOCTYPE html>
       <html>
         <head>
-          <meta charset=\"utf-8\">
+          <meta charset=\"utf-8\" />
           <title></title>
         </head>
         <body data-type="book">
@@ -22,10 +23,11 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
   def test_convert_section_sect1
     section = Asciidoctor::Section.new @doc
     section.sectname = 'sect1'
-    section.title = 'Section Title'
-    assert_equal <<~EOF, pretty_format(section.convert)
-      <section data-type="sect1">
-        <h1>Section Title</h1>
+    section.level = 1
+    section.title = 'Chapter Title'
+    assert_equal_xhtml <<~EOF, section.convert
+      <section data-type="chapter">
+        <h1>Chapter Title</h1>
       </section>
     EOF
   end
@@ -33,16 +35,46 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
   def test_convert_section_sect2
     section = Asciidoctor::Section.new @doc
     section.sectname = 'sect2'
-    section.title = 'Section Title'
     section.level = 2
-    assert_equal <<~EOF, pretty_format(section.convert)
-      <section data-type="sect2">
-        <h2>Section Title</h2>
+    section.title = 'Section Title'
+    assert_equal_xhtml <<~EOF, section.convert
+      <section data-type="sect1">
+        <h1>Section Title</h1>
       </section>
     EOF
   end
 
+  def test_convert_section_part
+    section = Asciidoctor::Section.new @doc
+    section.sectname = 'part'
+    section.level = 0
+    section.title = 'Part Title'
+    assert_equal_xhtml <<~EOF, section.convert
+      <section data-type="part">
+        <h1>Part Title</h1>
+      </section>
+    EOF
+  end
+
+  def test_convert_section_preface
+    section = Asciidoctor::Section.new @doc
+    section.sectname = 'preface'
+    section.level = 1
+    section.title = 'Preface Title'
+    assert_equal_xhtml <<~EOF, section.convert
+      <section data-type="preface">
+        <h1>Preface Title</h1>
+      </section>
+    EOF
+  end
+
+  def assert_equal_xhtml(except, actual)
+    assert_equal pretty_format(except), pretty_format(actual)
+  end
+
   def pretty_format(html)
-    html.gsub(/^\s+\n/, '')
+    out = ""
+    REXML::Document.new(html).write(out, 2)
+    out.gsub(/^\s*\n/, '')
   end
 end
