@@ -14,6 +14,26 @@
     <h1>{{ node.title }}</h1>
     {{ node.content }}
   </section>
+{% when 'sect3' %}
+  <section data-type="sect2">
+    <h2>{{ node.title }}</h2>
+    {{ node.content }}
+  </section>
+{% when 'sect4' %}
+  <section data-type="sect3">
+    <h3>{{ node.title }}</h3>
+    {{ node.content }}
+  </section>
+{% when 'sect5' %}
+  <section data-type="sect4">
+    <h4>{{ node.title }}</h4>
+    {{ node.content }}
+  </section>
+{% when 'sect6' %}
+  <section data-type="sect5">
+    <h5>{{ node.title }}</h5>
+    {{ node.content }}
+  </section>
 {% else %}
   <section data-type="{{ node.sectname }}">
     <h1>{{ node.title }}</h1>

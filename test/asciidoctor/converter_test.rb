@@ -44,13 +44,15 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
 
   def test_convert_section_sect2
     section = Asciidoctor::Section.new @doc
-    section.sectname = 'sect2'
-    section.title = 'Section Title'
-    assert_equal_xhtml <<~EOF, section.convert
-      <section data-type="sect1">
-        <h1>Section Title</h1>
-      </section>
-    EOF
+    (1..5).each do |level|
+      section.sectname = "sect#{level + 1}"
+      section.title = 'Section Title'
+      assert_equal_xhtml <<~EOF, section.convert
+        <section data-type="sect#{level}">
+          <h#{level}>Section Title</h#{level}>
+        </section>
+      EOF
+    end
   end
 
   def test_convert_section_preface
