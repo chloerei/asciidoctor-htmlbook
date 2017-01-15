@@ -70,6 +70,13 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_paragraph
+    block = Asciidoctor::Block.new @doc, 'paragraph', source: 'Text'
+    assert_equal_xhtml <<~EOF, block.convert
+      <p>Text</p>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end

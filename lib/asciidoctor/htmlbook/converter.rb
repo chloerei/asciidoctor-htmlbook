@@ -32,10 +32,12 @@ module Asciidoctor
           template.render 'node' => document_to_liquid(node)
         when Asciidoctor::Section
           template.render 'node' => section_to_liquid(node)
+        when Asciidoctor::Block
+          template.render 'node' => block_to_liquid(node)
         when Asciidoctor::Inline
           template.render 'node' => inline_to_liquid(node)
         else
-          raise "Uncatch type"
+          raise "Uncatch type #{node} #{node.attributes}"
         end
       end
 
@@ -71,6 +73,12 @@ module Asciidoctor
           'sectname' => node.sectname,
           'special' => node.special,
           'numbered' => node.numbered
+        })
+      end
+
+      def block_to_liquid(node)
+        abstract_block_to_liquid(node).merge({
+          blockname: node.blockname
         })
       end
 
