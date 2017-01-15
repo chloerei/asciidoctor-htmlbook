@@ -26,15 +26,19 @@ module Asciidoctor
           raise "Template not found #{node.node_name} #{node} #{node.attributes}"
         end
 
+        template.render 'node' => node_to_liquid(node)
+      end
+
+      def node_to_liquid(node)
         case node
         when Asciidoctor::Document
-          template.render 'node' => document_to_liquid(node)
+          document_to_liquid(node)
         when Asciidoctor::Section
-          template.render 'node' => section_to_liquid(node)
+          section_to_liquid(node)
         when Asciidoctor::Block
-          template.render 'node' => block_to_liquid(node)
+          block_to_liquid(node)
         when Asciidoctor::Inline
-          template.render 'node' => inline_to_liquid(node)
+          inline_to_liquid(node)
         else
           raise "Uncatch type #{node} #{node.attributes}"
         end
