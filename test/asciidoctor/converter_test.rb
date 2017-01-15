@@ -24,8 +24,9 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     section = Asciidoctor::Section.new @doc
     section.sectname = 'sect0'
     section.title = 'Part Title'
+    section.id = "_part0"
     assert_equal_xhtml <<~EOF, section.convert
-      <section data-type="part">
+      <section id="_part0" data-type="part">
         <h1>Part Title</h1>
       </section>
     EOF
@@ -35,8 +36,9 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     section = Asciidoctor::Section.new @doc
     section.sectname = 'sect1'
     section.title = 'Chapter Title'
+    section.id = "_chapter1"
     assert_equal_xhtml <<~EOF, section.convert
-      <section data-type="chapter">
+      <section id="_chapter1" data-type="chapter">
         <h1>Chapter Title</h1>
       </section>
     EOF
@@ -47,8 +49,9 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     (1..5).each do |level|
       section.sectname = "sect#{level + 1}"
       section.title = 'Section Title'
+      section.id = "_sect#{level}"
       assert_equal_xhtml <<~EOF, section.convert
-        <section data-type="sect#{level}">
+        <section id="_sect#{level}" data-type="sect#{level}">
           <h#{level}>Section Title</h#{level}>
         </section>
       EOF
@@ -59,8 +62,9 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     section = Asciidoctor::Section.new @doc
     section.sectname = 'preface'
     section.title = 'Preface Title'
+    section.id = '_preface'
     assert_equal_xhtml <<~EOF, section.convert
-      <section data-type="preface">
+      <section id="_preface" data-type="preface">
         <h1>Preface Title</h1>
       </section>
     EOF
