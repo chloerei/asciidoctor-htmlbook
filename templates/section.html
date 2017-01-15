@@ -1,4 +1,9 @@
 {% case node.sectname %}
+{% when 'sect0' %}
+  <section data-type="part">
+    <h1>{{ node.title }}</h1>
+    {{ node.content }}
+  </section>
 {% when 'sect1' %}
   <section data-type="chapter">
     <h1>{{ node.title }}</h1>
