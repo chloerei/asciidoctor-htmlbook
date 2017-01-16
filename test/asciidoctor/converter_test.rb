@@ -91,6 +91,39 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_inline_quoted
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :emphasis).convert
+      <em>text</em>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :strong).convert
+      <strong>text</strong>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :monospaced).convert
+      <code>text</code>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :superscript).convert
+      <sup>text</sup>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :subscript).convert
+      <sub>text</sub>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :double).convert
+      &#8220;text&#8221;
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :single).convert
+      &#8216;text&#8217;
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :mark).convert
+      <mark>text</mark>
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :asciimath).convert
+      \\$text\\$
+    EOF
+    assert_equal_xhtml <<~EOF, Asciidoctor::Inline.new(@doc, :quoted, 'text', type: :latexmath).convert
+      \\text\\
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
