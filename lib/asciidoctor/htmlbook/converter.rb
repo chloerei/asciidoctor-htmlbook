@@ -37,6 +37,8 @@ module Asciidoctor
           section_to_liquid(node)
         when Asciidoctor::Block
           block_to_liquid(node)
+        when Asciidoctor::List
+          list_to_liquid(node)
         when Asciidoctor::Inline
           inline_to_liquid(node)
         else
@@ -81,7 +83,19 @@ module Asciidoctor
 
       def block_to_liquid(node)
         abstract_block_to_liquid(node).merge({
-          blockname: node.blockname
+          'blockname' => node.blockname
+        })
+      end
+
+      def list_to_liquid(node)
+        abstract_block_to_liquid(node).merge({
+          'items' => node.blocks.map { |item| listitem_to_liquid(item) }
+        })
+      end
+
+      def listitem_to_liquid(node)
+        abstract_block_to_liquid(node).merge({
+          'text' => node.text
         })
       end
 

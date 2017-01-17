@@ -139,6 +139,48 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_ulist
+    ulist = Asciidoctor::List.new @doc, :ulist
+    3.times { ulist.blocks << Asciidoctor::ListItem.new(ulist, 'listitem') }
+    assert_equal_xhtml <<~EOF, ulist.convert
+      <ul>
+        <li>
+          <p>listitem</p>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+      </ul>
+    EOF
+  end
+
+  def test_convert_ulist_nested
+    ulist = Asciidoctor::List.new @doc, :ulist
+    ulist.blocks << Asciidoctor::ListItem.new(ulist, 'listitem')
+    ulist.blocks.first.blocks << Asciidoctor::List.new(@doc, :ulist)
+    ulist.blocks.first.blocks.first.blocks << Asciidoctor::ListItem.new(ulist.blocks.first.blocks.first, 'listitem')
+    ulist.blocks << Asciidoctor::ListItem.new(ulist, 'listitem')
+
+    assert_equal_xhtml <<~EOF, ulist.convert
+      <ul>
+        <li>
+          <p>listitem</p>
+          <ul>
+            <li>
+              <p>listitem</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+      </ul>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
@@ -147,5 +189,8 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     out = ""
     REXML::Document.new(html).write(out, 2)
     out.gsub(/^\s*\n/, '')
+  rescue
+    puts html
+    raise
   end
 end
