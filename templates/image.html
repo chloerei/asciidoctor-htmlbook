@@ -1,0 +1,7 @@
+<figure>
+  <img src="{{ node.attributes.target }}"
+       {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %} />
+  {% if node.attributes.title %}
+    <figcaption>{{ node.attributes.title }}</figcaption>
+  {% endif %}
+</figure>

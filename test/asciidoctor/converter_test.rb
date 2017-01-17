@@ -124,6 +124,21 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_image
+    assert_equal_xhtml <<~EOF, Asciidoctor::Block.new(@doc, :image, attributes: { 'target' => 'http://example.com/logo.png'}).convert
+      <figure>
+        <img src="http://example.com/logo.png" />
+      </figure>
+    EOF
+
+    assert_equal_xhtml <<~EOF, Asciidoctor::Block.new(@doc, :image, attributes: { 'target' => 'http://example.com/logo.png', 'alt' => 'logo', 'title' => 'Image Title'}).convert
+      <figure>
+        <img src="http://example.com/logo.png" alt="logo" />
+        <figcaption>Image Title</figcaption>
+      </figure>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
