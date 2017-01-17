@@ -181,6 +181,48 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_olist
+    olist = Asciidoctor::List.new @doc, :olist
+    3.times { olist.blocks << Asciidoctor::ListItem.new(olist, 'listitem') }
+    assert_equal_xhtml <<~EOF, olist.convert
+      <ol>
+        <li>
+          <p>listitem</p>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+      </ol>
+    EOF
+  end
+
+  def test_convert_olist_nested
+    olist = Asciidoctor::List.new @doc, :olist
+    olist.blocks << Asciidoctor::ListItem.new(olist, 'listitem')
+    olist.blocks.first.blocks << Asciidoctor::List.new(@doc, :olist)
+    olist.blocks.first.blocks.first.blocks << Asciidoctor::ListItem.new(olist.blocks.first.blocks.first, 'listitem')
+    olist.blocks << Asciidoctor::ListItem.new(olist, 'listitem')
+
+    assert_equal_xhtml <<~EOF, olist.convert
+      <ol>
+        <li>
+          <p>listitem</p>
+          <ol>
+            <li>
+              <p>listitem</p>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <p>listitem</p>
+        </li>
+      </ol>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
