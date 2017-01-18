@@ -1,0 +1,10 @@
+{% case node.type %}
+{% when 'xref' %}
+  {% if node.text %}
+    <a data-type="xref" href="{{ node.target }}">{{ node.text }}</a>
+  {% elsif node.document.references.ids[node.attributes.refid] %}
+    <a data-type="xref" href="{{ node.target }}">{{ node.document.references.ids[node.attributes.refid] }}</a>
+  {% else %}
+    <a data-type="xref" href="{{ node.target }}">[{{ node.attributes.refid }}]</a>
+  {% endif %}
+{% endcase %}

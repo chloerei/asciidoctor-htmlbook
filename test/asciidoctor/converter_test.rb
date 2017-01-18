@@ -223,6 +223,24 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_inline_anchor_xref
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, nil, :type => :xref, :target => '#target', :attributes => { 'refid' => 'refid' })
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a data-type="xref" href="#target">[refid]</a>
+    EOF
+
+    @doc.instance_variable_set :@references, { ids: { 'refid' => 'Ref Title' } }
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, nil, :type => :xref, :target => '#target', :attributes => { 'refid' => 'refid' })
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a data-type="xref" href="#target">Ref Title</a>
+    EOF
+
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'reftext', :type => :xref, :target => '#target', :attributes => { 'refid' => 'refid' })
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a data-type="xref" href="#target">reftext</a>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end

@@ -51,7 +51,12 @@ module Asciidoctor
           'context' => node.context.to_s,
           'node_name' => node.node_name,
           'id' => node.id,
-          'attributes' => node.attributes
+          'attributes' => node.attributes,
+          'document' => {
+            'references' => {
+              'ids' => node.document.references[:ids]
+            }
+          }
         }
       end
 
