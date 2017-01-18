@@ -230,14 +230,40 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
 
     @doc.instance_variable_set :@references, { ids: { 'refid' => 'Ref Title' } }
-    anchor = Asciidoctor::Inline.new(@doc, :anchor, nil, :type => :xref, :target => '#target', :attributes => { 'refid' => 'refid' })
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, nil, type: :xref, target: '#target', attributes: { 'refid' => 'refid' })
     assert_equal_xhtml <<~EOF, anchor.convert
       <a data-type="xref" href="#target">Ref Title</a>
     EOF
 
-    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'reftext', :type => :xref, :target => '#target', :attributes => { 'refid' => 'refid' })
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'text', type: :xref, target: '#target', attributes: { 'refid' => 'refid' })
     assert_equal_xhtml <<~EOF, anchor.convert
-      <a data-type="xref" href="#target">reftext</a>
+      <a data-type="xref" href="#target">text</a>
+    EOF
+  end
+
+  def test_inline_anchor_ref
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, nil, type: :ref, target: 'target')
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a id="target"></a>[target]
+    EOF
+  end
+
+  def test_inline_anchor_link
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'text', type: :link, target: 'http://example.com/')
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a href="http://example.com/">text</a>
+    EOF
+
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'text', type: :link, target: 'http://example.com/', attributes: { 'title' => 'title', 'window' => '_blank' })
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a href="http://example.com/" title="title" target="_blank">text</a>
+    EOF
+  end
+
+  def test_inline_anchor_bibref
+    anchor = Asciidoctor::Inline.new(@doc, :anchor, 'text', type: :bibref, target: 'target')
+    assert_equal_xhtml <<~EOF, anchor.convert
+      <a id="target"></a>[text]
     EOF
   end
 

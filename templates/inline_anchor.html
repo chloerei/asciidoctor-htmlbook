@@ -7,4 +7,12 @@
   {% else %}
     <a data-type="xref" href="{{ node.target }}">[{{ node.attributes.refid }}]</a>
   {% endif %}
+{% when 'ref' %}
+  <a id="{{ node.target }}"></a>
+{% when 'link' %}
+  <a href="{{ node.target }}"
+     {% if node.attributes.title %}title="{{ node.attributes.title }}"{% endif %}
+     {% if node.attributes.window %}target="{{ node.attributes.window }}"{% endif %} >{{ node.text }}</a>
+{% when 'bibref' %}
+  <a id="{{ node.target }}"></a>[{{ node.target }}]
 {% endcase %}
