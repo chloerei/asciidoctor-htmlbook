@@ -267,6 +267,33 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_listing
+    listing = Asciidoctor::Block.new(@doc, :listing, content_model: :verbatim, source: <<~EOF)
+      def hello
+        puts "hello world!"
+      end
+    EOF
+    assert_equal_xhtml <<~EOF, listing.convert
+      <figure>
+        <pre data-type="programlisting">def hello
+          puts "hello world!"
+        end</pre>
+      </figure>
+    EOF
+
+    listing.id = 'listing'
+    listing.title = 'Listing'
+    listing.attributes['language'] = 'ruby'
+    assert_equal_xhtml <<~EOF, listing.convert
+      <figure>
+        <figcaption>Listing</figcaption>
+        <pre data-type="programlisting" data-code-language="ruby" id="listing">def hello
+          puts "hello world!"
+        end</pre>
+      </figure>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
