@@ -294,6 +294,18 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_admonition
+    admonition = Asciidoctor::Block.new @doc, :admonition, content_model: :compound, attributes: { 'name' => 'note' }
+    admonition.title = 'Title'
+    admonition.blocks << Asciidoctor::Block.new(@doc, :paragraph, source: 'Text')
+    assert_equal_xhtml <<~EOF, admonition.convert
+      <div data-type="note">
+        <h5>Title</h5>
+        <p>Text</p>
+      </div>
+    EOF
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
   end
