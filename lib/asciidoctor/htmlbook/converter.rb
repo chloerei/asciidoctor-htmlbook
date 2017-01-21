@@ -39,6 +39,8 @@ module Asciidoctor
           block_to_liquid(node)
         when Asciidoctor::List
           list_to_liquid(node)
+        when Asciidoctor::Table
+          table_to_liquid(node)
         when Asciidoctor::Inline
           inline_to_liquid(node)
         else
@@ -95,6 +97,27 @@ module Asciidoctor
       def list_to_liquid(node)
         abstract_block_to_liquid(node).merge({
           'items' => node.blocks.map { |item| listitem_to_liquid(item) }
+        })
+      end
+
+      def table_to_liquid(node)
+        abstract_block_to_liquid(node).merge({
+          'columns' => node.columns,
+          'rows' => {
+            'head' => node.rows.head.map { |row| row.map {|cell| cell_to_liquid(cell) } },
+            'body' => node.rows.body.map { |row| row.map {|cell| cell_to_liquid(cell) } },
+            'foot' => node.rows.foot.map { |row| row.map {|cell| cell_to_liquid(cell) } }
+          }
+        })
+      end
+
+      def cell_to_liquid(node)
+        abstract_node_to_liquid(node).merge({
+          'text' => node.text,
+          'content' => node.content,
+          'style' => node.style,
+          'colspan' => node.colspan,
+          'rowspan' => node.rowspan
         })
       end
 

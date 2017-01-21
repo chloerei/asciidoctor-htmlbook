@@ -306,8 +306,155 @@ class Asciidoctor::Htmlbook::ConverterTest < Minitest::Test
     EOF
   end
 
+  def test_convert_table
+    doc = <<~EOF
+      |===
+
+      | Cell in column 1, row 1 | Cell in column 2, row 1
+
+      | Cell in column 1, row 2 | Cell in column 2, row 2
+
+      | Cell in column 1, row 3 | Cell in column 2, row 3
+
+      |===
+    EOF
+
+    html = <<-EOF
+      <table>
+        <tbody>
+          <tr>
+            <td>Cell in column 1, row 1</td>
+            <td>Cell in column 2, row 1</td>
+          </tr>
+          <tr>
+            <td>Cell in column 1, row 2</td>
+            <td>Cell in column 2, row 2</td>
+          </tr>
+          <tr>
+            <td>Cell in column 1, row 3</td>
+            <td>Cell in column 2, row 3</td>
+          </tr>
+        </tbody>
+      </table>
+    EOF
+
+    assert_convert_equal html, doc
+  end
+
+  def test_convert_table_with_title_header
+    doc = <<~EOF
+      .Table Title
+      |===
+      | Name of Column 1 | Name of Column 2 | Name of Column 3
+
+      | Cell in column 1, row 1
+      | Cell in column 2, row 1
+      | Cell in column 3, row 1
+
+      | Cell in column 1, row 2
+      | Cell in column 2, row 2
+      | Cell in column 3, row 2
+      |===
+    EOF
+
+    html = <<-EOF
+      <table>
+        <caption>Table Title</caption>
+        <thead>
+          <tr>
+            <th>Name of Column 1</th>
+            <th>Name of Column 2</th>
+            <th>Name of Column 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cell in column 1, row 1</td>
+            <td>Cell in column 2, row 1</td>
+            <td>Cell in column 3, row 1</td>
+          </tr>
+          <tr>
+            <td>Cell in column 1, row 2</td>
+            <td>Cell in column 2, row 2</td>
+            <td>Cell in column 3, row 2</td>
+          </tr>
+        </tbody>
+      </table>
+    EOF
+
+    assert_convert_equal html, doc
+  end
+
+  def test_convert_table_with_colspan_rowspan
+    doc = <<~EOF
+      .Table Title
+      |===
+      | Name of Column 1 | Name of Column 2 | Name of Column 3
+
+      2+| Cell in column 1, 2, row 1
+      | Cell in column 3, row 1
+
+      .2+| Cell in column 1, row 2, 3
+      | Cell in column 2, row 2
+      | Cell in column 3, row 2
+
+      | Cell in column 2, row 2
+      | Cell in column 3, row 2
+      |===
+    EOF
+
+    html = <<-EOF
+      <table>
+        <caption>Table Title</caption>
+        <thead>
+          <tr>
+            <th>Name of Column 1</th>
+            <th>Name of Column 2</th>
+            <th>Name of Column 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">Cell in column 1, 2, row 1</td>
+            <td>Cell in column 3, row 1</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Cell in column 1, row 2, 3</td>
+            <td>Cell in column 2, row 2</td>
+            <td>Cell in column 3, row 2</td>
+          </tr>
+          <tr>
+            <td>Cell in column 2, row 2</td>
+            <td>Cell in column 3, row 2</td>
+          </tr>
+        </tbody>
+      </table>
+    EOF
+
+    assert_convert_equal html, doc
+  end
+
   def assert_equal_xhtml(except, actual)
     assert_equal pretty_format(except), pretty_format(actual)
+  end
+
+  def assert_convert_equal(except, actual)
+    except_html = <<~EOF
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset=\"utf-8\" />
+          <title></title>
+        </head>
+        <body data-type="book">
+          #{except}
+        </body>
+      </html>
+    EOF
+
+    actual_html = Asciidoctor.convert actual, backend: 'htmlbook'
+
+    assert_equal_xhtml(pretty_format(except_html), pretty_format(actual_html))
   end
 
   def pretty_format(html)
