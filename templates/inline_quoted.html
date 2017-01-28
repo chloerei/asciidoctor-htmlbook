@@ -18,7 +18,7 @@
 {% when 'asciimath' %}
   \\${{ node.text }}\\$
 {% when 'latexmath' %}
-  \\{{ node.text }}\\
+  \\({{ node.text }}\\)
 {% else %}
   <span>{{ node.text }}</span>
 {% endcase %}

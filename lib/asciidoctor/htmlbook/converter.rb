@@ -74,7 +74,9 @@ module Asciidoctor
 
       def document_to_liquid(node)
         abstract_block_to_liquid(node).merge({
-          'doctitle' => node.doctitle
+          'header' => {
+            'title' => (node.header && node.header.title)
+          }
         })
       end
 
