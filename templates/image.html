@@ -1,6 +1,10 @@
 <figure>
-  <img src="{{ node.attributes.target }}"
-       {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %} />
+  {% if node.attributes.link %}<a href="{{ node.attributes.link }}">{% endif %}
+    <img src="{{ node.attributes.target }}"
+         {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %}
+         {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
+         {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %} />
+  {% if node.attributes.link %}</a>{% endif %}
   {% if node.attributes.title %}
     <figcaption>{{ node.attributes.title }}</figcaption>
   {% endif %}
