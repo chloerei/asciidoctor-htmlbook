@@ -7,12 +7,10 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a data-type="xref" href="#target">text</a>
-      </p>
+      <p><a data-type="xref" href="#target">text</a></p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_anchor_xref_with_section
@@ -24,19 +22,13 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a data-type="xref" href="#target">
-           Section
-        </a>
-      </p>
+      <p><a data-type="xref" href="#target">Section</a></p>
       <section id="target" data-type="chapter">
-        <h1>
-           Section
-        </h1>
+        <h1>Section</h1>
       </section>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_anchor_xref_with_refid
@@ -45,14 +37,10 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a data-type='xref' href='#Section'>
-          [Section]
-        </a>
-      </p>
+      <p><a data-type='xref' href='#Section'>[Section]</a></p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
 
@@ -62,12 +50,10 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a id="target"></a> Content
-      </p>
+      <p><a id="target"></a> Content</p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_anchor_link
@@ -76,12 +62,10 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a href="http://example.com/">text</a>
-      </p>
+      <p><a href="http://example.com/">text</a></p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_anchor_link_with_attributes
@@ -92,12 +76,10 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a href="http://example.com/" title="title" target="_blank">text</a>
-      </p>
+      <p><a href="http://example.com/" title="title" target="_blank">text</a></p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_anchor_bibref
@@ -106,11 +88,9 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <p>
-        <a id="target"></a>[target] Content
-      </p>
+      <p><a id="target"></a>[target] Content</p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

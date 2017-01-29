@@ -17,7 +17,7 @@ class Asciidoctor::Htmlbook::Converter::DocumentTest < ConverterTest
       </html>
     EOF
 
-    assert_equal_xhtml html, Asciidoctor.convert(doc, backend: 'htmlbook')
+    assert_convert_html html, doc
   end
 
   def test_convert_document_with_title
@@ -37,6 +37,6 @@ class Asciidoctor::Htmlbook::Converter::DocumentTest < ConverterTest
       </html>
     EOF
 
-    assert_equal_xhtml html, Asciidoctor.convert(doc, backend: 'htmlbook')
+    assert_convert_html html, doc
   end
 end

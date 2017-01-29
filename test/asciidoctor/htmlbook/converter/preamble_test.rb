@@ -28,6 +28,6 @@ class Asciidoctor::Htmlbook::Converter::PreambleTest < ConverterTest
       </html>
     EOF
 
-    assert_equal_xhtml html, Asciidoctor.convert(doc, backend: 'htmlbook')
+    assert_convert_html html, doc
   end
 end

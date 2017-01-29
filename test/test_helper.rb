@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'rexml/document'
 
 class ConverterTest <  Minitest::Test
-  def assert_convert_equal(except, actual)
+  def assert_convert_body(html, doc)
     except_html = <<~EOF
       <!DOCTYPE html>
       <html>
@@ -13,24 +13,26 @@ class ConverterTest <  Minitest::Test
           <title></title>
         </head>
         <body data-type="book">
-          #{except}
+          #{html}
         </body>
       </html>
     EOF
 
-    actual_html = Asciidoctor.convert actual, backend: 'htmlbook'
+    actual_html = Asciidoctor.convert doc, backend: 'htmlbook'
 
-    assert_equal_xhtml(pretty_format(except_html), pretty_format(actual_html))
+    assert_equal pretty_format(except_html), pretty_format(actual_html)
   end
 
-  def assert_equal_xhtml(except, actual)
-    assert_equal pretty_format(except), pretty_format(actual)
+  def assert_convert_html(html, doc)
+    actual_html = Asciidoctor.convert doc, backend: 'htmlbook'
+
+    assert_equal pretty_format(html), pretty_format(actual_html)
   end
 
   def pretty_format(html)
     out = ""
     REXML::Document.new(html).write(out, 2)
-    out.gsub(/^\s*\n/, '')
+    out.gsub(/\s*$/, '')
   rescue
     puts html
     raise

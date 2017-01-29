@@ -14,7 +14,7 @@ class Asciidoctor::Htmlbook::Converter::QuoteTest < ConverterTest
       </blockquote>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_quote_with_attribution_and_citetitle
@@ -33,6 +33,6 @@ class Asciidoctor::Htmlbook::Converter::QuoteTest < ConverterTest
       </blockquote>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

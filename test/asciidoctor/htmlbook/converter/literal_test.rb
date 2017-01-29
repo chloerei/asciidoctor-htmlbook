@@ -12,6 +12,6 @@ class Asciidoctor::Htmlbook::Converter::LiteralTest < ConverterTest
       <pre>Text</pre>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

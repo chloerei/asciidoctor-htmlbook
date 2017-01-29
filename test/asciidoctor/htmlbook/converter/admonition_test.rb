@@ -12,7 +12,7 @@ class Asciidoctor::Htmlbook::Converter::AdmonitionTest < ConverterTest
       </div>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_admonition_with_title
@@ -31,6 +31,6 @@ class Asciidoctor::Htmlbook::Converter::AdmonitionTest < ConverterTest
       </div>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

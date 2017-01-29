@@ -31,7 +31,7 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
       </html>
     EOF
 
-    assert_equal_xhtml html, Asciidoctor.convert(doc, backend: 'htmlbook')
+    assert_convert_html html, doc
   end
 
   def test_convert_section_chapter
@@ -46,7 +46,7 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
       </section>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_section_sect1
@@ -61,7 +61,7 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
       </section>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_section_sect2
@@ -76,7 +76,7 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
       </section>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_section_preface
@@ -92,6 +92,6 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
       </section>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

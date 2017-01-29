@@ -12,7 +12,7 @@ class Asciidoctor::Htmlbook::Converter::ImageTest < ConverterTest
       </figure>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_image_with_title
@@ -28,6 +28,6 @@ class Asciidoctor::Htmlbook::Converter::ImageTest < ConverterTest
       </figure>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

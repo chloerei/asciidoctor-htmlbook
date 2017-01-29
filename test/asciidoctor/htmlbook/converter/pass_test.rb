@@ -12,6 +12,6 @@ class Asciidoctor::Htmlbook::Converter::PassTest < ConverterTest
       Pass
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

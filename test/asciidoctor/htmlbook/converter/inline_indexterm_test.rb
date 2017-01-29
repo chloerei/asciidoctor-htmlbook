@@ -12,7 +12,7 @@ class Asciidoctor::Htmlbook::Converter::InlineIndextermTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_indexterm_invisible
@@ -26,6 +26,6 @@ class Asciidoctor::Htmlbook::Converter::InlineIndextermTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

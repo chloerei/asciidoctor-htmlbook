@@ -22,7 +22,7 @@ class Asciidoctor::Htmlbook::Converter::OlistTest < ConverterTest
       </ol>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_olist_nested
@@ -48,7 +48,7 @@ class Asciidoctor::Htmlbook::Converter::OlistTest < ConverterTest
       </ol>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
 end

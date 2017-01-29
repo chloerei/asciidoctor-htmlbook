@@ -19,7 +19,7 @@ class Asciidoctor::Htmlbook::Converter::ListingTest < ConverterTest
       </figure>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_listing_with_attributes
@@ -43,7 +43,7 @@ class Asciidoctor::Htmlbook::Converter::ListingTest < ConverterTest
       </figure>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
 end

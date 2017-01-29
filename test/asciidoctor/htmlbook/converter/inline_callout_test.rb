@@ -18,8 +18,7 @@ class Asciidoctor::Htmlbook::Converter::InlineCalloutTest < ConverterTest
 
     html = <<~EOF
       <figure>
-        <pre data-type="programlisting" data-code-language="ruby">
-           require "sinatra" <a data-type="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
+        <pre data-type="programlisting" data-code-language="ruby">require "sinatra" <a data-type="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
 
            get "/hi" do <a data-type="callout" id="callout-CO1-2" href="#colist-CO1-2">2</a> <a data-type="callout" id="callout-CO1-3" href="#colist-CO1-3">3</a>
              "Hello World!"
@@ -39,6 +38,6 @@ class Asciidoctor::Htmlbook::Converter::InlineCalloutTest < ConverterTest
       </ul>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end

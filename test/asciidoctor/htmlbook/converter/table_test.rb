@@ -33,7 +33,7 @@ class Asciidoctor::Htmlbook::Converter::TableTest < ConverterTest
       </table>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_table_with_title_header
@@ -77,7 +77,7 @@ class Asciidoctor::Htmlbook::Converter::TableTest < ConverterTest
       </table>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_table_with_colspan_rowspan
@@ -126,7 +126,7 @@ class Asciidoctor::Htmlbook::Converter::TableTest < ConverterTest
       </table>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
 end

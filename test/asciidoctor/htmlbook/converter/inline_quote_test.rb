@@ -12,7 +12,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_strong
@@ -26,7 +26,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_strong
@@ -40,7 +40,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_sup
@@ -54,7 +54,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_sub
@@ -68,7 +68,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_double
@@ -82,7 +82,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_single
@@ -96,7 +96,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_mark
@@ -110,7 +110,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_asciimath
@@ -124,7 +124,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 
   def test_convert_inline_quoted_latexmath
@@ -138,6 +138,6 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       </p>
     EOF
 
-    assert_convert_equal html, doc
+    assert_convert_body html, doc
   end
 end
