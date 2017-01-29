@@ -97,8 +97,26 @@ module Asciidoctor
       end
 
       def list_to_liquid(node)
+        case node.context
+        when :dlist
+          abstract_block_to_liquid(node).merge({
+            'items' => node.items.map { |terms, item|
+              {
+                'terms' => terms.map {|term| listitem_to_liquid(term) },
+                'description' => listitem_to_liquid(item)
+              }
+            }
+          })
+        else
+          abstract_block_to_liquid(node).merge({
+            'items' => node.blocks.map { |item| listitem_to_liquid(item) }
+          })
+        end
+      end
+
+      def listitem_to_liquid(node)
         abstract_block_to_liquid(node).merge({
-          'items' => node.blocks.map { |item| listitem_to_liquid(item) }
+          'text' => (node.text? ? node.text : nil)
         })
       end
 
@@ -120,12 +138,6 @@ module Asciidoctor
           'style' => node.style,
           'colspan' => node.colspan,
           'rowspan' => node.rowspan
-        })
-      end
-
-      def listitem_to_liquid(node)
-        abstract_block_to_liquid(node).merge({
-          'text' => node.text
         })
       end
 
