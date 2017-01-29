@@ -7,7 +7,7 @@ class Asciidoctor::Htmlbook::Converter::ThematicBreakTest < ConverterTest
     EOF
 
     html = <<~EOF
-      <hr/>
+      <hr />
     EOF
 
     assert_convert_body html, doc

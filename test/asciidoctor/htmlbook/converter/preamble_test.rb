@@ -14,7 +14,7 @@ class Asciidoctor::Htmlbook::Converter::PreambleTest < ConverterTest
       <!DOCTYPE html>
       <html>
         <head>
-          <meta charset='utf-8'/>
+          <meta charset='utf-8' />
           <title>Doc Title</title>
         </head>
         <body data-type='book'>
