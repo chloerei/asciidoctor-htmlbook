@@ -1,0 +1,9 @@
+<video src="{{ node.attributes.target }}"
+       {% assign attribute_white_list = "width, height, controls, autoplay, poster" | split: ", " %}
+       {% for attribute in attribute_white_list %}
+         {% if node.attributes[attribute] %}
+           {{ attribute }}="{{ node.attributes[attribute] }}"
+         {% endif %}
+       {% endfor %}>
+  <em>Sorry, the &lt;video&gt; element not supported in your reading system.</em>
+</video>
