@@ -1,9 +1,9 @@
 <video src="{{ node.attributes.target }}"
-       {% assign attribute_white_list = "width, height, controls, autoplay, poster" | split: ", " %}
-       {% for attribute in attribute_white_list %}
-         {% if node.attributes[attribute] %}
-           {{ attribute }}="{{ node.attributes[attribute] }}"
-         {% endif %}
-       {% endfor %}>
+       controls="controls"
+       {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
+       {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %}
+       {% if node.attributes.poster %}poster="{{ node.attributes.poster }}"{% endif %}
+       {% if node.attributes.options contains 'autoplay' %}autoplay="autoplay"{% endif %}
+       {% if node.attributes.options contains 'loop' %}loop="loop"{% endif %}>
   <em>Sorry, the &lt;video&gt; element not supported in your reading system.</em>
 </video>
