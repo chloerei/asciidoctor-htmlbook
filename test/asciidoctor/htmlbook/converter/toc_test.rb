@@ -116,13 +116,13 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < ConverterTest
             </nav>
           </section>
           <section id='_chapter_one' data-type='chapter'>
-            <h1>Chapter One</h1>
+            <h1>1. Chapter One</h1>
             <section id='_section_one' data-type='sect1'>
-              <h1>Section One</h1>
+              <h1>1.1. Section One</h1>
             </section>
           </section>
           <section id='_chapter_two' data-type='chapter'>
-            <h1>Chapter Two</h1>
+            <h1>2. Chapter Two</h1>
           </section>
         </body>
       </html>

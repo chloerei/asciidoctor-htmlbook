@@ -87,7 +87,8 @@ module Asciidoctor
           'number' => node.number,
           'sectname' => node.sectname,
           'special' => node.special,
-          'numbered' => node.numbered
+          'numbered' => node.numbered,
+          'sectnum' => node.sectnum
         })
       end
 

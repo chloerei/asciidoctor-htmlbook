@@ -94,4 +94,30 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < ConverterTest
 
     assert_convert_body html, doc
   end
+
+  def test_convert_section_with_sectnum
+    doc = <<~EOF
+      :sectnums:
+
+      == Chapter One
+
+      === Section One
+
+      == Chapter Two
+    EOF
+
+    html = <<~EOF
+      <section id='_chapter_one' data-type='chapter'>
+        <h1>1. Chapter One</h1>
+        <section id='_section_one' data-type='sect1'>
+          <h1>1.1. Section One</h1>
+        </section>
+      </section>
+      <section id='_chapter_two' data-type='chapter'>
+        <h1>2. Chapter Two</h1>
+      </section>
+    EOF
+
+    assert_convert_body html, doc
+  end
 end
