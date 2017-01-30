@@ -118,9 +118,9 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       asciimath:[math]
     EOF
 
-    html = <<~EOF
+    html = <<~'EOF'
       <p>
-        \\\\$math\\\\$
+        \\$math\\$
       </p>
     EOF
 
@@ -132,9 +132,9 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
       latexmath:[math]
     EOF
 
-    html = <<~EOF
+    html = <<~'EOF'
       <p>
-        \\\\(math\\\\)
+        \\(math\\)
       </p>
     EOF
 
