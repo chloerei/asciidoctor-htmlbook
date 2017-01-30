@@ -1,0 +1,6 @@
+<audio src="{{ node.attributes.target }}"
+       controls="controls"
+       {% if node.attributes.options contains 'autoplay' %}autoplay="autoplay"{% endif %}
+       {% if node.attributes.options contains 'loop' %}loop="loop"{% endif %}>
+  <em>Sorry, the &lt;auido&gt; element not supported in your reading system.</em>
+</audio>
