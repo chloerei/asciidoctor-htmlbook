@@ -57,7 +57,8 @@ module Asciidoctor
           'document' => {
             'references' => {
               'ids' => node.document.references[:ids]
-            }
+            },
+            'attributes' => node.document.attributes
           }
         }
       end
@@ -91,9 +92,35 @@ module Asciidoctor
       end
 
       def block_to_liquid(node)
-        abstract_block_to_liquid(node).merge({
-          'blockname' => node.blockname
-        })
+        case node.context
+        when :toc
+          abstract_block_to_liquid(node).merge({
+            'blockname' => node.blockname,
+            'content' => outline(node.document)
+          })
+        else
+          abstract_block_to_liquid(node).merge({
+            'blockname' => node.blockname
+          })
+        end
+      end
+
+      def outline(node)
+        result = ""
+        if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2)
+          result << "<ol>"
+          node.sections.each do |section|
+            result << "<li>"
+            result << %Q(<a href="##{section.id}">)
+            result << "#{section.sectnum} " if section.numbered && section.level < (node.document.attributes['sectnumlevels'] || 3)
+            result << section.title
+            result << "</a>"
+            result << outline(section)
+            result << "</li>"
+          end
+          result << "</ol>"
+        end
+        result
       end
 
       def list_to_liquid(node)
