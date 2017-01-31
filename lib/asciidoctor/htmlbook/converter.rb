@@ -79,9 +79,9 @@ module Asciidoctor
         abstract_node_to_liquid(node).merge({
           'level' => node.level,
           'title' => node.title,
+          'caption' => node.caption,
           'captioned_title' => node.captioned_title,
           'style' => node.style,
-          'caption' => node.caption,
           'content' => node.content
         })
       end

@@ -36,7 +36,7 @@
   </section>
 {% else %}
   <section id="{{node.id}}" data-type="{{ node.sectname }}">
-    <h1>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h1>
+    <h1>{{ node.caption }}{{ node.title }}</h1>
     {{ node.content }}
   </section>
 {% endcase %}

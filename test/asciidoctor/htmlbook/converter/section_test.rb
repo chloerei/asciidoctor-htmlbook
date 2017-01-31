@@ -99,6 +99,11 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < Minitest::Test
 
   def test_convert_section_with_sectnum
     doc = <<~EOF
+      :sectnums!:
+
+      [preface]
+      == Preface
+
       :sectnums:
 
       == Chapter One
@@ -106,9 +111,18 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < Minitest::Test
       === Section One
 
       == Chapter Two
+
+      [appendix]
+      == First Appendix
+
+      [appendix]
+      == Second Appendix
     EOF
 
     html = <<~EOF
+      <section id='_preface' data-type='preface'>
+        <h1>Preface</h1>
+      </section>
       <section id='_chapter_one' data-type='chapter'>
         <h1>1. Chapter One</h1>
         <section id='_section_one' data-type='sect1'>
@@ -117,6 +131,12 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < Minitest::Test
       </section>
       <section id='_chapter_two' data-type='chapter'>
         <h1>2. Chapter Two</h1>
+      </section>
+      <section id='_first_appendix' data-type='appendix'>
+        <h1>Appendix A: First Appendix</h1>
+      </section>
+      <section id='_second_appendix' data-type='appendix'>
+        <h1>Appendix B: Second Appendix</h1>
       </section>
     EOF
 
