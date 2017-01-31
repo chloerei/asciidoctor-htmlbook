@@ -11,6 +11,14 @@ module Asciidoctor
         @templates = {}
       end
 
+      def convert(node, transform = nil, options = {})
+        template = get_template(node.node_name)
+
+        template.render 'node' => node_to_liquid(node)
+      end
+
+      private
+
       def get_template(node_name)
         return @templates[node_name] if @templates[node_name]
 
@@ -27,16 +35,6 @@ module Asciidoctor
         end
 
         @templates[node_name]
-      end
-
-      def convert(node, transform = nil, options = {})
-        template = get_template(node.node_name)
-
-        unless template
-          raise "Template not found #{node.node_name} #{node} #{node.attributes}"
-        end
-
-        template.render 'node' => node_to_liquid(node)
       end
 
       def node_to_liquid(node)
