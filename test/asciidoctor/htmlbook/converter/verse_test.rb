@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::VerseTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::VerseTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_verse
     doc = <<~EOF
       [verse, attribution, citetitle]

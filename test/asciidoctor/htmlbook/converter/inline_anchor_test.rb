@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_inline_anchor_xref_with_text
     doc = <<~EOF
       <<target, text>>

@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::VideoTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::VideoTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_video
     doc = <<~EOF
       video::video_file.mp4[]

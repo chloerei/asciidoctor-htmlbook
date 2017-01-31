@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::PreambleTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::PreambleTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_preamble
     doc = <<~EOF
       = Doc Title

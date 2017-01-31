@@ -1,6 +1,8 @@
 require "test_helper"
 
-class Asciidoctor::Htmlbook::Converter::InlineCalloutTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::InlineCalloutTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_inline_callout
     doc = <<~EOF
       [source,ruby]

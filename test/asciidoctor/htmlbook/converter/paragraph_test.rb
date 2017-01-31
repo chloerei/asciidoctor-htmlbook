@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::ParagraphTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::ParagraphTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_paragraph
     doc = <<~EOF
       Text

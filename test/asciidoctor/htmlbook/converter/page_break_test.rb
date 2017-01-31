@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::PageBreakTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::PageBreakTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_page_break
     doc = <<~EOF
       <<<

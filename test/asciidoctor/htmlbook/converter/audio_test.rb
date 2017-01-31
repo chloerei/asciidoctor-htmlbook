@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::AudioTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::AudioTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_audio
     doc = <<~EOF
       audio::audio_file.mp3[]

@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::DlistTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::DlistTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_dlist
     doc = <<~EOF
       Label One:: Content one.

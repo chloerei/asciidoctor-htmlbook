@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_toc_auto
     doc = <<~EOF
       = Book Title

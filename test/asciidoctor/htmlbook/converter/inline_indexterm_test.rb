@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::InlineIndextermTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::InlineIndextermTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_inline_indexterm_visible
     doc = <<~EOF
       ((term))

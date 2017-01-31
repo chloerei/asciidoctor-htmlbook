@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::QuoteTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::QuoteTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_quote
     doc = <<~EOF
       ____

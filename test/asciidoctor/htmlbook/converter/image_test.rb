@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::ImageTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::ImageTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_image
     doc = <<~EOF
       image::http://example.com/logo.png[]

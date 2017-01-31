@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::PassTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::PassTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_pass
     doc = <<~EOF
       ++++

@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::LiteralTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::LiteralTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_literal
     doc = <<~EOF
       ....

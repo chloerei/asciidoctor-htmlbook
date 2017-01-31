@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::TableTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::TableTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_table
     doc = <<~EOF
       |===

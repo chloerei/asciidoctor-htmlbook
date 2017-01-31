@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::UlistTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::UlistTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_ulist
     doc = <<~EOF
       * listitem

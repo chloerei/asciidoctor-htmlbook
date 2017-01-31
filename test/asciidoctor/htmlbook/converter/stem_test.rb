@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::StemTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::StemTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_stem_latexmath
     doc = <<~'EOF'
       [latexmath]

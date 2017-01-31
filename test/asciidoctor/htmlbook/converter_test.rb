@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::ConverterTest < ::ConverterTest
+class Asciidoctor::Htmlbook::ConverterTest < ::Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_with_template_dir
     doc = <<~EOF
       == Section

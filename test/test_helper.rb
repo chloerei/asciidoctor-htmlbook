@@ -3,7 +3,7 @@ require 'asciidoctor/htmlbook'
 require 'minitest/autorun'
 require 'rexml/document'
 
-class ConverterTest <  Minitest::Test
+module ConverterTestHelper
   def assert_convert_body(html, doc, options = {})
     except_html = <<~EOF
       <!DOCTYPE html>

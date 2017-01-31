@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < ConverterTest
+class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < Minitest::Test
+  include ConverterTestHelper
+
   def test_convert_inline_quoted_em
     doc = <<~EOF
       __text__
