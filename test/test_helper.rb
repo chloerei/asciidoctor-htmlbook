@@ -6,25 +6,22 @@ require 'rexml/document'
 module ConverterTestHelper
   def assert_convert_body(html, doc, options = {})
     except_html = <<~EOF
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset=\"utf-8\" />
-          <title></title>
-        </head>
-        <body data-type="book">
-          #{html}
-        </body>
-      </html>
+      <body data-type="book">
+        #{html}
+      </body>
     EOF
 
-    actual_html = Asciidoctor.convert doc, options.merge(backend: 'htmlbook')
+    actual_html = <<~EOF
+      <body data-type="book">
+        #{Asciidoctor.convert doc, options.merge(backend: 'htmlbook')}
+      </body>
+    EOF
 
     assert_equal pretty_format(except_html), pretty_format(actual_html)
   end
 
   def assert_convert_html(html, doc, options = {})
-    actual_html = Asciidoctor.convert doc, options.merge(backend: 'htmlbook')
+    actual_html = Asciidoctor.convert doc, options.merge(backend: 'htmlbook', header_footer: true)
 
     assert_equal pretty_format(html), pretty_format(actual_html)
   end

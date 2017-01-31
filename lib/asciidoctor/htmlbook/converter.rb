@@ -12,29 +12,33 @@ module Asciidoctor
       end
 
       def convert(node, transform = nil, options = {})
-        template = get_template(node.node_name)
+        template = if (node.node_name == 'document' && transform == 'embedded')
+          get_template('embedded')
+        else
+          get_template(node.node_name)
+        end
 
         template.render 'node' => node_to_liquid(node)
       end
 
       private
 
-      def get_template(node_name)
-        return @templates[node_name] if @templates[node_name]
+      def get_template(name)
+        return @templates[name] if @templates[name]
 
         @template_dirs.each do |template_dir|
-          path = File.join template_dir, "#{node_name}.html"
+          path = File.join template_dir, "#{name}.html"
           if File.exist?(path)
-            @templates[node_name] = Liquid::Template.parse(File.read(path))
+            @templates[name] = Liquid::Template.parse(File.read(path))
             break
           end
         end
 
-        unless @templates[node_name]
-          raise "Template not found #{node.node_name} #{node} #{node.attributes}"
+        unless @templates[name]
+          raise "Template not found #{name}"
         end
 
-        @templates[node_name]
+        @templates[name]
       end
 
       def node_to_liquid(node)

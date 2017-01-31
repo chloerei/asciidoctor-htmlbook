@@ -36,4 +36,25 @@ class Asciidoctor::Htmlbook::ConverterTest < ::Minitest::Test
 
     assert_convert_body html, doc, template_dirs: [File.expand_path('../../../templates', __FILE__)]
   end
+
+  def test_header_footer_options
+    html = <<~EOF
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <title></title>
+        </head>
+        <body data-type="book">
+          <p>Text</p>
+        </body>
+      </html>
+    EOF
+    assert_equal pretty_format(html), pretty_format(Asciidoctor.convert('Text', backend: 'htmlbook', header_footer: true))
+
+    html = <<~EOF
+      <p>Text</p>
+    EOF
+    assert_equal pretty_format(html), pretty_format(Asciidoctor.convert('Text', backend: 'htmlbook', header_footer: false))
+  end
 end
