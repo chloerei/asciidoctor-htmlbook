@@ -5,7 +5,7 @@
          {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
          {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %} />
   {% if node.attributes.link %}</a>{% endif %}
-  {% if node.attributes.title %}
-    <figcaption>{{ node.attributes.title }}</figcaption>
+  {% if node.title %}
+    <figcaption>{{ node.captioned_title }}</figcaption>
   {% endif %}
 </figure>

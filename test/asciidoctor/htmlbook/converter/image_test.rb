@@ -26,7 +26,25 @@ class Asciidoctor::Htmlbook::Converter::ImageTest < Minitest::Test
     html = <<~EOF
       <figure>
         <img src="http://example.com/logo.png" alt="logo" />
-        <figcaption>Image Title</figcaption>
+        <figcaption>Figure 1. Image Title</figcaption>
+      </figure>
+    EOF
+
+    assert_convert_body html, doc
+  end
+
+  def test_convert_image_with_title_and_custom_caption
+    doc = <<~EOF
+      :figure-caption: Image
+
+      .Image Title
+      image::http://example.com/logo.png[]
+    EOF
+
+    html = <<~EOF
+      <figure>
+        <img src="http://example.com/logo.png" alt="logo" />
+        <figcaption>Image 1. Image Title</figcaption>
       </figure>
     EOF
 

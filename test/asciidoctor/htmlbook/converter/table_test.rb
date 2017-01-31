@@ -56,7 +56,7 @@ class Asciidoctor::Htmlbook::Converter::TableTest < Minitest::Test
 
     html = <<-EOF
       <table>
-        <caption>Table Title</caption>
+        <caption>Table 1. Table Title</caption>
         <thead>
           <tr>
             <th>Name of Column 1</th>
@@ -102,7 +102,7 @@ class Asciidoctor::Htmlbook::Converter::TableTest < Minitest::Test
 
     html = <<-EOF
       <table>
-        <caption>Table Title</caption>
+        <caption>Table 1. Table Title</caption>
         <thead>
           <tr>
             <th>Name of Column 1</th>
@@ -131,4 +131,20 @@ class Asciidoctor::Htmlbook::Converter::TableTest < Minitest::Test
     assert_convert_body html, doc
   end
 
+  def test_convert_table_with_title_and_custom_caption
+    doc = <<~EOF
+      :table-caption: Data
+      .Table Title
+      |===
+      |===
+    EOF
+
+    html = <<~EOF
+      <table>
+        <caption>Data 1. Table Title</caption>
+      </table>
+    EOF
+
+    assert_convert_body html, doc
+  end
 end
