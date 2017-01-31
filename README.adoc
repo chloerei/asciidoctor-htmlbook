@@ -1,0 +1,132 @@
+= Asciidoctor HTMLBook
+
+Asciidoctor HTMLBook is an link:http://asciidoctor.org/[Asciidoctor] backend for converting AsciiDoc documents to link:http://oreillymedia.github.io/HTMLBook/[HTMLBook] documents.
+
+== Installation
+
+Add this line to your application's Gemfile:
+
+[source, ruby]
+----
+gem 'asciidoctor-htmlbook'
+----
+
+And then execute:
+
+[source, console]
+----
+$ bundle
+----
+
+Or install it yourself as:
+
+[source, console]
+----
+$ gem install asciidoctor-htmlbook
+----
+
+== Usage
+
+=== CLI
+
+[source, console]
+----
+$ asciidoctor-htmlbook basic-example.adoc
+----
+
+or
+
+[source, console]
+----
+$ asciidoctor -r asciidoctor-htmlbook basic-example.adoc
+----
+
+For more options:
+
+[source, console]
+----
+$ asciidoctor-htmlbook -h
+----
+
+=== API
+
+To use Asciidoctor in your application, you first need to require the gem:
+
+[source, ruby]
+----
+require 'asciidoctor/htmlbook'
+----
+
+==== Load and Convert a File Using the API
+
+Load from file:
+
+[source, ruby]
+----
+doc = Asciidoctor.load_file 'mysample.adoc', backend: 'htmlbook'
+puts doc.convert
+----
+
+Convert file:
+
+[source, ruby]
+----
+Asciidoctor.convert_file 'mysample.adoc', backend: 'htmlbook'
+----
+
+==== Load and Convert Strings Using the API
+
+Load from string:
+
+[source, ruby]
+----
+doc = Asciidoctor.load '*This* is Asciidoctor.', backend: 'htmlbook'
+puts doc.convert
+----
+
+Render string:
+
+[source, ruby]
+----
+Asciidoctor.convert '*This* is Asciidoctor.', backend: 'htmlbook'
+----
+
+When rendering a string, the header and footer are excluded by default to make Asciidoctor consistent with other lightweight markup engines like Markdown. If you want the header and footer, just enable it using the `:header_footer` option:
+
+[source, ruby]
+----
+Asciidoctor.convert '*This* is Asciidoctor.', backend: 'htmlbook', header_footer: true
+----
+
+== Provide Custom Templates
+
+You can overwrite default templates by adding `:template_dir` option:
+
+[source, console]
+----
+$ asciidoctor-htmlbook -T path/to/templates basic-example.adoc
+----
+
+[source, ruby]
+----
+Asciidoctor.convert '*This* is Asciidoctor.', backend: 'htmlbook', template_dir: 'path/to/templates'
+----
+
+[NOTE]
+--
+asciidoctor-htmlbook template do not compatible with asciidoctor built-in template backend.
+
+View link:./templates[] for more info.
+--
+
+== Development
+
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+== Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/chloerei/asciidoctor-htmlbook. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the link:http://contributor-covenant.org[Contributor Covenant] code of conduct.
+
+== License
+
+The gem is available as open source under the terms of the link:http://opensource.org/licenses/MIT[MIT License].

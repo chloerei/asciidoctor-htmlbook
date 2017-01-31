@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Rei"]
   spec.email         = ["chloerei@gmail.com"]
 
-  spec.summary       = %q{}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.summary       = %q{Asciidoctor HTMLBook is an Asciidoctor backend for converting AsciiDoc documents to HTMLBook documents.}
+  spec.description   = %q{Asciidoctor HTMLBook is an Asciidoctor backend for converting AsciiDoc documents to HTMLBook documents.}
+  spec.homepage      = "https://github.com/chloerei/asciidoctor-htmlbook"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
