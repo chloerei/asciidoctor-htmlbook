@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'rexml/document'
 
 class ConverterTest <  Minitest::Test
-  def assert_convert_body(html, doc)
+  def assert_convert_body(html, doc, options = {})
     except_html = <<~EOF
       <!DOCTYPE html>
       <html>
@@ -18,13 +18,13 @@ class ConverterTest <  Minitest::Test
       </html>
     EOF
 
-    actual_html = Asciidoctor.convert doc, backend: 'htmlbook'
+    actual_html = Asciidoctor.convert doc, options.merge(backend: 'htmlbook')
 
     assert_equal pretty_format(except_html), pretty_format(actual_html)
   end
 
-  def assert_convert_html(html, doc)
-    actual_html = Asciidoctor.convert doc, backend: 'htmlbook'
+  def assert_convert_html(html, doc, options = {})
+    actual_html = Asciidoctor.convert doc, options.merge(backend: 'htmlbook')
 
     assert_equal pretty_format(html), pretty_format(actual_html)
   end

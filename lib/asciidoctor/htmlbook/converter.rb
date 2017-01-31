@@ -7,16 +7,26 @@ module Asciidoctor
 
       def initialize(backend, options = {})
         super
+        @template_dirs = (options[:template_dirs] || []).push(DEFAULT_TEMPLATE_PATH)
         @templates = {}
       end
 
       def get_template(node_name)
         return @templates[node_name] if @templates[node_name]
 
-        path = File.join DEFAULT_TEMPLATE_PATH, "#{node_name}.html"
-        if File.exist?(path)
-          @templates[node_name] = Liquid::Template.parse(File.read(path))
+        @template_dirs.each do |template_dir|
+          path = File.join template_dir, "#{node_name}.html"
+          if File.exist?(path)
+            @templates[node_name] = Liquid::Template.parse(File.read(path))
+            break
+          end
         end
+
+        unless @templates[node_name]
+          raise "Template not found #{node.node_name} #{node} #{node.attributes}"
+        end
+
+        @templates[node_name]
       end
 
       def convert(node, transform = nil, options = {})
