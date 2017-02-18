@@ -31,7 +31,7 @@ class Asciidoctor::Htmlbook::Converter::InlineQuoteTest < Minitest::Test
     assert_convert_body html, doc
   end
 
-  def test_convert_inline_quoted_strong
+  def test_convert_inline_quoted_monospaced
     doc = <<~EOF
       `text`
     EOF
