@@ -3,15 +3,12 @@ require 'test_helper'
 class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
   include ConverterTestHelper
 
-  def test_convert_toc_auto
+  def test_convert_toc
     doc = <<~EOF
       = Book Title
-      :toc: macro
 
-      [preface]
-      == Preface
-
-      toc::[]
+      [toc]
+      == Table of Contents
 
       == Chapter One
 
@@ -28,28 +25,22 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
           <title>Book Title</title>
         </head>
         <body data-type='book'>
-          <section id='_preface' data-type='preface'>
-            <h1>Preface</h1>
-            <nav data-type='toc'>
-              <h1>Table of Contents</h1>
-              <ol>
-                <li>
-                  <a href='#_preface'>Preface</a>
-                </li>
-                <li>
-                  <a href='#_chapter_one'>Chapter One</a>
-                  <ol>
-                    <li>
-                      <a href='#_section_one'>Section One</a>
-                    </li>
-                  </ol>
-                </li>
-                <li>
-                  <a href='#_chapter_two'>Chapter Two</a>
-                </li>
-              </ol>
-            </nav>
-          </section>
+          <nav id='_table_of_contents' data-type='toc'>
+            <h1>Table of Contents</h1>
+            <ol>
+              <li>
+                <a href='#_chapter_one'>Chapter One</a>
+                <ol>
+                  <li>
+                    <a href='#_section_one'>Section One</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href='#_chapter_two'>Chapter Two</a>
+              </li>
+            </ol>
+          </nav>
           <section id='_chapter_one' data-type='chapter'>
             <h1>Chapter One</h1>
             <section id='_section_one' data-type='sect1'>
@@ -69,14 +60,12 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
   def test_convert_toc_with_sectnum
     doc = <<~EOF
       = Book Title
-      :toc: macro
-
-      :sectnums!:
 
       [preface]
       == Preface
 
-      toc::[]
+      [toc]
+      == Table of Contents
 
       :sectnums:
 
@@ -97,26 +86,26 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
         <body data-type='book'>
           <section id='_preface' data-type='preface'>
             <h1>Preface</h1>
-            <nav data-type='toc'>
-              <h1>Table of Contents</h1>
-              <ol>
-                <li>
-                  <a href='#_preface'>Preface</a>
-                </li>
-                <li>
-                  <a href='#_chapter_one'>1. Chapter One</a>
-                  <ol>
-                    <li>
-                      <a href='#_section_one'>1.1. Section One</a>
-                    </li>
-                  </ol>
-                </li>
-                <li>
-                  <a href='#_chapter_two'>2. Chapter Two</a>
-                </li>
-              </ol>
-            </nav>
           </section>
+          <nav id='_table_of_contents' data-type='toc'>
+            <h1>Table of Contents</h1>
+            <ol>
+              <li>
+                <a href='#_preface'>Preface</a>
+              </li>
+              <li>
+                <a href='#_chapter_one'>1. Chapter One</a>
+                <ol>
+                  <li>
+                    <a href='#_section_one'>1.1. Section One</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href='#_chapter_two'>2. Chapter Two</a>
+              </li>
+            </ol>
+          </nav>
           <section id='_chapter_one' data-type='chapter'>
             <h1>1. Chapter One</h1>
             <section id='_section_one' data-type='sect1'>

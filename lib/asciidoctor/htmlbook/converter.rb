@@ -14,6 +14,8 @@ module Asciidoctor
       def convert(node, transform = nil, options = {})
         template = if (node.node_name == 'document' && transform == 'embedded')
           get_template('embedded')
+        elsif node.node_name == 'section' && node.sectname == 'toc'
+          get_template('toc')
         else
           get_template(node.node_name)
         end
@@ -95,7 +97,7 @@ module Asciidoctor
       end
 
       def section_to_liquid(node)
-        abstract_block_to_liquid(node).merge({
+        attributes = abstract_block_to_liquid(node).merge({
           'index' => node.index,
           'number' => node.number,
           'sectname' => node.sectname,
@@ -103,20 +105,18 @@ module Asciidoctor
           'numbered' => node.numbered,
           'sectnum' => node.sectnum
         })
+
+        if node.sectname == 'toc'
+          attributes['content'] = outline(node.document)
+        end
+
+        attributes
       end
 
       def block_to_liquid(node)
-        case node.context
-        when :toc
-          abstract_block_to_liquid(node).merge({
-            'blockname' => node.blockname,
-            'content' => outline(node.document)
-          })
-        else
-          abstract_block_to_liquid(node).merge({
-            'blockname' => node.blockname
-          })
-        end
+        abstract_block_to_liquid(node).merge({
+          'blockname' => node.blockname
+        })
       end
 
       def outline(node)
@@ -124,6 +124,8 @@ module Asciidoctor
         if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2)
           result << "<ol>"
           node.sections.each do |section|
+            next if section.sectname == 'toc'
+
             result << "<li>"
             result << %Q(<a href="##{section.id}">)
             result << "#{section.sectnum} " if section.numbered && section.level < (node.document.attributes['sectnumlevels'] || 3)
