@@ -2,17 +2,17 @@
 {% when 'xref' %}
   {% if node.text %}
     <a data-type="xref" href="{{ node.target }}">{{ node.text }}</a>
-  {% elsif node.document.references.ids[node.attributes.refid] %}
-    <a data-type="xref" href="{{ node.target }}">{{ node.document.references.ids[node.attributes.refid] }}</a>
+  {% elsif node.document.references.refs[node.attributes.refid] %}
+    <a data-type="xref" href="{{ node.target }}">{{ node.document.references.refs[node.attributes.refid].xreftext }}</a>
   {% else %}
     <a data-type="xref" href="{{ node.target }}">[{{ node.attributes.refid }}]</a>
   {% endif %}
 {% when 'ref' %}
-  <a id="{{ node.target }}"></a>
+  <a id="{{ node.id }}"></a>
 {% when 'link' %}
   <a href="{{ node.target }}"
      {% if node.attributes.title %}title="{{ node.attributes.title }}"{% endif %}
      {% if node.attributes.window %}target="{{ node.attributes.window }}"{% endif %} >{{ node.text }}</a>
 {% when 'bibref' %}
-  <a id="{{ node.target }}"></a>[{{ node.target }}]
+  <a id="{{ node.id }}"></a>[{{ node.xreftext | default: node.id }}]
 {% endcase %}

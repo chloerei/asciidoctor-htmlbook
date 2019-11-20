@@ -86,11 +86,29 @@ class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < Minitest::Test
 
   def test_convert_inline_anchor_bibref
     doc = <<~EOF
-      [[[target]]] Content
+      [bibliography]
+      == References
+
+      - [[[target]]] Content
+      - [[[target2, 2]]] Content
     EOF
 
     html = <<~EOF
-      <p><a id="target"></a>[target] Content</p>
+      <section id='_references' data-type='bibliography'>
+       <h1>References</h1>
+       <ul>
+         <li>
+           <p>
+             <a id='target'/>[target] Content
+           </p>
+         </li>
+         <li>
+           <p>
+             <a id='target2'/>[2] Content
+           </p>
+         </li>
+       </ul>
+     </section>
     EOF
 
     assert_convert_body html, doc

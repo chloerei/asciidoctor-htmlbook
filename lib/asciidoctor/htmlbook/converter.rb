@@ -68,12 +68,18 @@ module Asciidoctor
           'node_name' => node.node_name,
           'id' => node.id,
           'attributes' => node.attributes,
-          'document' => {
-            'references' => {
-              'ids' => node.document.references[:ids]
-            },
-            'attributes' => node.document.attributes
-          }
+          'document' => document_info(node.document)
+        }
+      end
+
+      def document_info(document)
+        @document_info ||= {
+          'references' => {
+            'refs' => document.references[:refs].map { |refid, node|
+              [refid, { 'xreftext' => node.xreftext }]
+            }.to_h
+          },
+          'attributes' => document.attributes
         }
       end
 
@@ -84,7 +90,8 @@ module Asciidoctor
           'caption' => node.caption,
           'captioned_title' => node.captioned_title,
           'style' => node.style,
-          'content' => node.content
+          'content' => node.content,
+          'xreftext' => node.xreftext
         })
       end
 
@@ -100,7 +107,7 @@ module Asciidoctor
         attributes = abstract_block_to_liquid(node).merge({
           'index' => node.index,
           'number' => node.number,
-          'sectname' => node.sectname,
+          'sectname' => (node.sectname == 'section' ? "sect#{node.level}" : node.sectname),
           'special' => node.special,
           'numbered' => node.numbered,
           'sectnum' => node.sectnum
@@ -188,7 +195,8 @@ module Asciidoctor
         abstract_node_to_liquid(node).merge({
           'text' => node.text,
           'type' => node.type.to_s,
-          'target' => node.target
+          'target' => node.target,
+          'xreftext' => node.xreftext
         })
       end
     end

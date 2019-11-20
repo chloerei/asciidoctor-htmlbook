@@ -17,9 +17,9 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
 
   def test_convert_footnoteref
     doc = <<~EOF
-      Content one.footnoteref:[refid, Footnote content.]
+      Content one.footnote:refid[Footnote content.]
 
-      Content two.footnoteref:[refid]
+      Content two.footnote:refid[]
     EOF
 
     html = <<~EOF
