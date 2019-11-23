@@ -1,0 +1,5 @@
+== master
+
+== v0.0.4
+
+- Update to asciidoctor 2.0
