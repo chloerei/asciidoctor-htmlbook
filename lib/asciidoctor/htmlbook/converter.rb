@@ -128,14 +128,14 @@ module Asciidoctor
 
       def outline(node)
         result = ""
-        if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2)
+        if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2).to_i
           result << "<ol>"
           node.sections.each do |section|
             next if section.sectname == 'toc'
 
             result << "<li>"
             result << %Q(<a href="##{section.id}">)
-            result << "#{section.sectnum} " if section.numbered && section.level < (node.document.attributes['sectnumlevels'] || 3)
+            result << "#{section.sectnum} " if section.numbered && section.level < (node.document.attributes['sectnumlevels'] || 3).to_i
             result << section.title
             result << "</a>"
             result << outline(section)
