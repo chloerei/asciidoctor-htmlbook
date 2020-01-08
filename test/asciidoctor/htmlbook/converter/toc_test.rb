@@ -25,6 +25,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
           <title>Book Title</title>
         </head>
         <body data-type='book'>
+          <h1>Book Title</h1>
           <nav id='_table_of_contents' data-type='toc'>
             <h1>Table of Contents</h1>
             <ol>
@@ -84,6 +85,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
           <title>Book Title</title>
         </head>
         <body data-type='book'>
+          <h1>Book Title</h1>
           <section id='_preface' data-type='preface'>
             <h1>Preface</h1>
           </section>

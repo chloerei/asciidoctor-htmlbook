@@ -12,7 +12,6 @@ class Asciidoctor::Htmlbook::Converter::DocumentTest < Minitest::Test
       <html>
         <head>
           <meta charset=\"utf-8\" />
-          <title></title>
         </head>
         <body data-type="book">
         </body>
@@ -35,6 +34,7 @@ class Asciidoctor::Htmlbook::Converter::DocumentTest < Minitest::Test
           <title>Doc Title</title>
         </head>
         <body data-type="book">
+          <h1>Doc Title</h1>
         </body>
       </html>
     EOF

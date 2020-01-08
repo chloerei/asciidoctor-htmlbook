@@ -23,6 +23,7 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < Minitest::Test
           <title>Book</title>
         </head>
         <body data-type="book">
+          <h1>Book</h1>
           <section id="part" data-type="part">
             <h1>Part Title</h1>
             <section id="chapter" data-type="chapter">

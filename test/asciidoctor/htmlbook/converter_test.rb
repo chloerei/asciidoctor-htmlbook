@@ -43,7 +43,6 @@ class Asciidoctor::Htmlbook::ConverterTest < ::Minitest::Test
       <html>
         <head>
           <meta charset="utf-8" />
-          <title></title>
         </head>
         <body data-type="book">
           <p>Text</p>

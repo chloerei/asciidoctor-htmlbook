@@ -20,6 +20,7 @@ class Asciidoctor::Htmlbook::Converter::PreambleTest < Minitest::Test
           <title>Doc Title</title>
         </head>
         <body data-type='book'>
+          <h1>Doc Title</h1>
           <section data-type='preamble'>
             <p>Preamble Text.</p>
           </section>
