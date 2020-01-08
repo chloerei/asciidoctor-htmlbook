@@ -6,9 +6,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
   def test_convert_toc
     doc = <<~EOF
       = Book Title
-
-      [toc]
-      == Table of Contents
+      :toc:
 
       == Chapter One
 
@@ -26,7 +24,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
         </head>
         <body data-type='book'>
           <h1>Book Title</h1>
-          <nav id='_table_of_contents' data-type='toc'>
+          <nav data-type='toc'>
             <h1>Table of Contents</h1>
             <ol>
               <li>
@@ -61,12 +59,10 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
   def test_convert_toc_with_sectnum
     doc = <<~EOF
       = Book Title
+      :toc:
 
       [preface]
       == Preface
-
-      [toc]
-      == Table of Contents
 
       :sectnums:
 
@@ -86,10 +82,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
         </head>
         <body data-type='book'>
           <h1>Book Title</h1>
-          <section id='_preface' data-type='preface'>
-            <h1>Preface</h1>
-          </section>
-          <nav id='_table_of_contents' data-type='toc'>
+          <nav data-type='toc'>
             <h1>Table of Contents</h1>
             <ol>
               <li>
@@ -108,6 +101,9 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
               </li>
             </ol>
           </nav>
+          <section id='_preface' data-type='preface'>
+            <h1>Preface</h1>
+          </section>
           <section id='_chapter_one' data-type='chapter'>
             <h1>1. Chapter One</h1>
             <section id='_section_one' data-type='sect1'>
@@ -127,10 +123,8 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
   def test_toc_level
     doc = <<~EOF
       = Book Title
+      :toc:
       :toclevels: 1
-
-      [toc]
-      == Table of Contents
 
       == Chapter One
 
@@ -148,7 +142,7 @@ class Asciidoctor::Htmlbook::Converter::InlineFootnoteTest < Minitest::Test
         </head>
         <body data-type='book'>
           <h1>Book Title</h1>
-          <nav id='_table_of_contents' data-type='toc'>
+          <nav data-type='toc'>
             <h1>Table of Contents</h1>
             <ol>
               <li>

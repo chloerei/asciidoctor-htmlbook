@@ -6,6 +6,12 @@
   </head>
   <body data-type="book">
     {% if node.title %}<h1>{{ node.title }}</h1>{% endif %}
+    {% if node.attributes.toc %}
+      <nav data-type="toc">
+        <h1>{{ node.attributes.toc-title }}</h1>
+        {{ node.toc }}
+      </nav>
+    {% endif %}
     {{ node.content }}
   </body>
 </html>

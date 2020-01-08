@@ -14,8 +14,6 @@ module Asciidoctor
       def convert(node, transform = nil, options = {})
         template = if (node.node_name == 'document' && transform == 'embedded')
           get_template('embedded')
-        elsif node.node_name == 'section' && node.sectname == 'toc'
-          get_template('toc')
         else
           get_template(node.node_name)
         end
@@ -99,12 +97,14 @@ module Asciidoctor
         abstract_block_to_liquid(node).merge({
           'header' => {
             'title' => (node.header && node.header.title)
-          }
+          },
+          'title' => node.attributes['doctitle'],
+          'toc' => outline(node)
         })
       end
 
       def section_to_liquid(node)
-        attributes = abstract_block_to_liquid(node).merge({
+        abstract_block_to_liquid(node).merge({
           'index' => node.index,
           'number' => node.number,
           'sectname' => (node.sectname == 'section' ? "sect#{node.level}" : node.sectname),
@@ -112,12 +112,6 @@ module Asciidoctor
           'numbered' => node.numbered,
           'sectnum' => node.sectnum
         })
-
-        if node.sectname == 'toc'
-          attributes['content'] = outline(node.document)
-        end
-
-        attributes
       end
 
       def block_to_liquid(node)
@@ -127,7 +121,7 @@ module Asciidoctor
       end
 
       def outline(node)
-        result = ""
+        result = ''
         if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2).to_i
           result << "<ol>"
           node.sections.each do |section|
