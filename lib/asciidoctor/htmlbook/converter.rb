@@ -8,7 +8,7 @@ module Asciidoctor
       def initialize(backend, options = {})
         super
         init_backend_traits outfilesuffix: '.html'
-        @template_dirs = (options[:template_dirs] || []).push(DEFAULT_TEMPLATE_PATH)
+        @template_dirs = (options[:template_dirs] || []).prepend(DEFAULT_TEMPLATE_PATH)
         @templates = {}
       end
 
@@ -21,7 +21,7 @@ module Asciidoctor
       def get_template(name)
         return @templates[name] if @templates[name]
 
-        @template_dirs.each do |template_dir|
+        @template_dirs.reverse.each do |template_dir|
           path = File.join template_dir, "#{name}.html"
           if File.exist?(path)
             @templates[name] = Liquid::Template.parse(File.read(path))

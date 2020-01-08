@@ -102,11 +102,6 @@ Asciidoctor.convert '*This* is Asciidoctor.', backend: 'htmlbook', header_footer
 
 You can overwrite default templates by adding `:template_dir` option:
 
-[source, console]
-----
-$ asciidoctor-htmlbook -T path/to/templates basic-example.adoc
-----
-
 [source, ruby]
 ----
 Asciidoctor.convert '*This* is Asciidoctor.', backend: 'htmlbook', template_dir: 'path/to/templates'
