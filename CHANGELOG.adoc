@@ -1,5 +1,12 @@
 == master
 
+== v0.0.5
+
+- Fix body h1
+- Fix toclevel type error
+- Rename `*_to_liquid` methods to `*_to_hash` in converter.rb
+- Use toc attribute instead of section name
+
 == v0.0.4
 
 - Update to asciidoctor 2.0

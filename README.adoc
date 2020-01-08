@@ -114,23 +114,6 @@ asciidoctor-htmlbook template do not compatible with asciidoctor built-in templa
 View link:./templates[] for more info.
 --
 
-== Add Table of Contents
-
-Asciidoctor-htmlbook ignore `:toc:` attribute in Asciidoctor, instead you can use toc section:
-
-[source, asciidoc]
---
-[preface]
-== Preface
-
-[toc]
-== Table of Contents
-
-== Chapter
---
-
-So that you can control position of toc.
-
 == Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
