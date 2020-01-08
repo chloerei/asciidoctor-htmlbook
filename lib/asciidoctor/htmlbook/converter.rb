@@ -12,14 +12,8 @@ module Asciidoctor
         @templates = {}
       end
 
-      def convert(node, transform = nil, options = {})
-        template = if (node.node_name == 'document' && transform == 'embedded')
-          get_template('embedded')
-        else
-          get_template(node.node_name)
-        end
-
-        template.render 'node' => node_to_hash(node)
+      def convert(node, transform = node.node_name, options = {})
+        get_template(transform).render 'node' => node_to_hash(node)
       end
 
       private
