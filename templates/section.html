@@ -1,9 +1,9 @@
 {% case node.sectname %}
-{% when 'sect0' %}
-  <section id="{{node.id}}" data-type="part">
+{% when 'part' %}
+  <div id="{{node.id}}" data-type="part">
     <h1>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h1>
     {{ node.content }}
-  </section>
+  </div>
 {% when 'sect1' %}
   <section id="{{node.id}}" data-type="chapter">
     <h1>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h1>

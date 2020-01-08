@@ -24,12 +24,12 @@ class Asciidoctor::Htmlbook::Converter::SectionTest < Minitest::Test
         </head>
         <body data-type="book">
           <h1>Book</h1>
-          <section id="part" data-type="part">
+          <div id="part" data-type="part">
             <h1>Part Title</h1>
             <section id="chapter" data-type="chapter">
               <h1>Chapter Title</h1>
             </section>
-          </section>
+          </div>
         </body>
       </html>
     EOF
