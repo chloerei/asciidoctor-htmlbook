@@ -65,19 +65,7 @@ module Asciidoctor
           'context' => node.context.to_s,
           'node_name' => node.node_name,
           'id' => node.id,
-          'attributes' => node.attributes,
-          'document' => document_info(node.document)
-        }
-      end
-
-      def document_info(document)
-        @document_info ||= {
-          'references' => {
-            'refs' => document.references[:refs].map { |refid, node|
-              [refid, { 'xreftext' => node.xreftext }]
-            }.to_h
-          },
-          'attributes' => document.attributes
+          'attributes' => node.attributes
         }
       end
 
@@ -187,7 +175,7 @@ module Asciidoctor
 
       def inline_to_liquid(node)
         abstract_node_to_liquid(node).merge({
-          'text' => node.text,
+          'text' => node.text || node.document.references[:refs][node.attributes['refid']]&.xreftext || "[#{node.attributes['refid']}]",
           'type' => node.type.to_s,
           'target' => node.target,
           'xreftext' => node.xreftext

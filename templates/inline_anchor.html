@@ -1,12 +1,6 @@
 {% case node.type %}
 {% when 'xref' %}
-  {% if node.text %}
     <a data-type="xref" href="{{ node.target }}">{{ node.text }}</a>
-  {% elsif node.document.references.refs[node.attributes.refid] %}
-    <a data-type="xref" href="{{ node.target }}">{{ node.document.references.refs[node.attributes.refid].xreftext }}</a>
-  {% else %}
-    <a data-type="xref" href="{{ node.target }}">[{{ node.attributes.refid }}]</a>
-  {% endif %}
 {% when 'ref' %}
   <a id="{{ node.id }}"></a>
 {% when 'link' %}
