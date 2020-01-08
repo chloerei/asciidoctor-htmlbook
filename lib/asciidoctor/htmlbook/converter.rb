@@ -70,7 +70,7 @@ module Asciidoctor
       end
 
       def abstract_block_to_hash(node)
-        abstract_node_to_hash(node).merge({
+        abstract_node_to_hash(node).merge!({
           'level' => node.level,
           'title' => node.title,
           'caption' => node.caption,
@@ -82,7 +82,7 @@ module Asciidoctor
       end
 
       def document_to_hash(node)
-        abstract_block_to_hash(node).merge({
+        abstract_block_to_hash(node).merge!({
           'header' => {
             'title' => (node.header && node.header.title)
           },
@@ -92,7 +92,7 @@ module Asciidoctor
       end
 
       def section_to_hash(node)
-        abstract_block_to_hash(node).merge({
+        abstract_block_to_hash(node).merge!({
           'index' => node.index,
           'number' => node.number,
           'sectname' => (node.sectname == 'section' ? "sect#{node.level}" : node.sectname),
@@ -103,7 +103,7 @@ module Asciidoctor
       end
 
       def block_to_hash(node)
-        abstract_block_to_hash(node).merge({
+        abstract_block_to_hash(node).merge!({
           'blockname' => node.blockname
         })
       end
@@ -131,7 +131,7 @@ module Asciidoctor
       def list_to_hash(node)
         case node.context
         when :dlist
-          abstract_block_to_hash(node).merge({
+          abstract_block_to_hash(node).merge!({
             'items' => node.items.map { |terms, item|
               {
                 'terms' => terms.map {|term| listitem_to_hash(term) },
@@ -140,20 +140,20 @@ module Asciidoctor
             }
           })
         else
-          abstract_block_to_hash(node).merge({
+          abstract_block_to_hash(node).merge!({
             'items' => node.blocks.map { |item| listitem_to_hash(item) }
           })
         end
       end
 
       def listitem_to_hash(node)
-        abstract_block_to_hash(node).merge({
+        abstract_block_to_hash(node).merge!({
           'text' => (node.text? ? node.text : nil)
         })
       end
 
       def table_to_hash(node)
-        abstract_block_to_hash(node).merge({
+        abstract_block_to_hash(node).merge!({
           'columns' => node.columns,
           'rows' => {
             'head' => node.rows.head.map { |row| row.map {|cell| cell_to_hash(cell) } },
@@ -164,7 +164,7 @@ module Asciidoctor
       end
 
       def cell_to_hash(node)
-        abstract_node_to_hash(node).merge({
+        abstract_node_to_hash(node).merge!({
           'text' => node.text,
           'content' => node.content,
           'style' => node.style,
@@ -174,7 +174,7 @@ module Asciidoctor
       end
 
       def inline_to_hash(node)
-        abstract_node_to_hash(node).merge({
+        abstract_node_to_hash(node).merge!({
           'text' => node.text || node.document.references[:refs][node.attributes['refid']]&.xreftext || "[#{node.attributes['refid']}]",
           'type' => node.type.to_s,
           'target' => node.target,
