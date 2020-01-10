@@ -1,5 +1,11 @@
 == master
 
+== v0.0.6
+
+- Add id attribute for all block node
+- Add subtitle and author
+- fix ruby 2.4 compatibility
+
 == v0.0.5
 
 - Fix body h1
