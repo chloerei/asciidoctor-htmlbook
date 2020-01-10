@@ -81,7 +81,7 @@ module Asciidoctor
         abstract_block_to_hash(node).merge!({
           'title' => title&.main,
           'subtitle' => title&.subtitle,
-          'toc' => outline(node),
+          'outline' => outline(node),
           'authors' => node.authors.map { |author| author.to_h.map { |key, value| [key.to_s, value] }.to_h }
         })
       end
