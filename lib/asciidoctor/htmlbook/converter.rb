@@ -77,12 +77,12 @@ module Asciidoctor
       end
 
       def document_to_hash(node)
+        title = node.attributes['doctitle'] && node.doctitle(partition: true)
         abstract_block_to_hash(node).merge!({
-          'header' => {
-            'title' => (node.header && node.header.title)
-          },
-          'title' => node.attributes['doctitle'],
-          'toc' => outline(node)
+          'title' => title&.main,
+          'subtitle' => title&.subtitle,
+          'toc' => outline(node),
+          'authors' => node.authors.map { |author| author.to_h.map { |key, value| [key.to_s, value] }.to_h }
         })
       end
 
