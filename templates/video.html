@@ -1,4 +1,5 @@
-<video src="{{ node.attributes.target }}"
+<video {% if node.id %}id="{{ node.id }}"{% endif %}
+       src="{{ node.attributes.target }}"
        controls="controls"
        {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
        {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %}

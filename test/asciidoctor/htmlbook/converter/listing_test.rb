@@ -37,7 +37,7 @@ class Asciidoctor::Htmlbook::Converter::ListingTest < Minitest::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure id="id">
         <figcaption>Title</figcaption>
         <pre data-type="programlisting" data-code-language="ruby" id="id">def hello
           puts "hello world!"

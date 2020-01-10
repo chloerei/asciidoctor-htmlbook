@@ -14,4 +14,17 @@ class Asciidoctor::Htmlbook::Converter::ParagraphTest < Minitest::Test
 
     assert_convert_body html, doc
   end
+
+  def test_convert_with_id
+    doc = <<~EOF
+      [[text]]
+      Text
+    EOF
+
+    html = <<~EOF
+      <p id="text">Text</p>
+    EOF
+
+    assert_convert_body html, doc
+  end
 end

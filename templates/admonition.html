@@ -1,4 +1,4 @@
-<div data-type="{{ node.attributes.name }}">
+<div {% if node.id %}id="{{ node.id }}"{% endif %} data-type="{{ node.attributes.name }}">
   {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
   {{ node.content }}
 </div>

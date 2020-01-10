@@ -1,4 +1,4 @@
-<div data-type="equation">
+<div {% if node.id %}id="{{ node.id }}"{% endif %} data-type="equation">
   {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
   {% case node.style %}
   {% when 'latexmath' %}

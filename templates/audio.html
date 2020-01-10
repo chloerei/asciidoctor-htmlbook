@@ -1,4 +1,5 @@
-<audio src="{{ node.attributes.target }}"
+<audio {% if node.id %}id="{{ node.id }}"{% endif %}
+       src="{{ node.attributes.target }}"
        controls="controls"
        {% if node.attributes.autoplay-option %}autoplay="autoplay"{% endif %}
        {% if node.attributes.loop-option %}loop="loop"{% endif %}>

@@ -3,6 +3,21 @@ require 'test_helper'
 class Asciidoctor::Htmlbook::Converter::InlineAnchorTest < Minitest::Test
   include ConverterTestHelper
 
+  def test_convert_inline_anchor
+    doc = <<~EOF
+      [[paragraph]]paragraph content
+    EOF
+
+    html = <<~EOF
+      <p>
+        <a id="paragraph"></a>
+        paragraph content
+      </p>
+    EOF
+
+    assert_convert_body html, doc
+  end
+
   def test_convert_inline_anchor_xref_with_text
     doc = <<~EOF
       <<target, text>>
