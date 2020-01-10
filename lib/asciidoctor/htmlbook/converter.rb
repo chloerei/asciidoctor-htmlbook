@@ -8,7 +8,7 @@ module Asciidoctor
       def initialize(backend, options = {})
         super
         init_backend_traits outfilesuffix: '.html'
-        @template_dirs = (options[:template_dirs] || []).prepend(DEFAULT_TEMPLATE_PATH)
+        @template_dirs = (options[:template_dirs] || []).unshift(DEFAULT_TEMPLATE_PATH)
         @templates = {}
       end
 
