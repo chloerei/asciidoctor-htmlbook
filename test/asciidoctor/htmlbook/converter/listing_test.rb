@@ -39,7 +39,7 @@ class Asciidoctor::Htmlbook::Converter::ListingTest < Minitest::Test
     html = <<~EOF
       <figure id="id">
         <figcaption>Title</figcaption>
-        <pre data-type="programlisting" data-code-language="ruby" id="id">def hello
+        <pre data-type="programlisting" data-code-language="ruby">def hello
           puts "hello world!"
         end</pre>
       </figure>
