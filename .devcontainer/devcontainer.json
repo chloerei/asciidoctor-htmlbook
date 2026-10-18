@@ -1,0 +1,7 @@
+{
+  "name": "asciidoctor-htmlbook",
+  "image": "ruby:4.0",
+
+  // Install the gem dependencies (runs `bundle install`).
+  "postCreateCommand": "bin/setup",
+}
