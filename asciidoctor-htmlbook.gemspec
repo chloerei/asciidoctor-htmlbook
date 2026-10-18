@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'asciidoctor/htmlbook/version'
@@ -23,4 +22,10 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "asciidoctor", "~> 2.0"
   spec.add_runtime_dependency "liquid", "~> 5.0"
+
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "minitest"
+  spec.add_development_dependency "rexml"
+  spec.add_development_dependency "logger"
+  spec.add_development_dependency "base64"
 end
