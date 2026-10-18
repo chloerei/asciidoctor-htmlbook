@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish gem
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: Check version matches release tag
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          gem_version="$(ruby -Ilib -rasciidoctor/htmlbook/version -e 'print Asciidoctor::Htmlbook::VERSION')"
+          tag_version="${TAG_NAME#v}"
+          if [ "$gem_version" != "$tag_version" ]; then
+            echo "::error::Release tag ${TAG_NAME} does not match gem version ${gem_version}"
+            exit 1
+          fi
+
+      - name: Run tests
+        run: bundle exec rake test
+
+      - name: Build gem
+        run: gem build asciidoctor-htmlbook.gemspec
+
+      # Requires a repository secret named RUBYGEMS_API_KEY
+      # (a RubyGems.org API key with the push_rubygem scope).
+      - name: Push gem to RubyGems.org
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: gem push asciidoctor-htmlbook-*.gem
