@@ -104,7 +104,7 @@ module Asciidoctor
       end
 
       def outline(node)
-        result = ''
+        result = +''
         if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2).to_i
           result << "<ol>"
           node.sections.each do |section|

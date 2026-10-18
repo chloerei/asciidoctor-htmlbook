@@ -27,7 +27,7 @@ module ConverterTestHelper
   end
 
   def pretty_format(html)
-    out = ""
+    out = +""
     REXML::Document.new(html).write(out, 2)
     out.gsub(/\A\s*/, '').gsub(/\s*$/, '')
   rescue
